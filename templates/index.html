@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>California House Price Prediction</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+
+        <!-- ================= HEADER ================= -->
+
+        <header class="header">
+
+            <div class="house-icon">
+                🏠
+            </div>
+
+            <h1>
+                California House Price Prediction
+            </h1>
+
+            <p>
+                Enter the property details to predict the house value
+            </p>
+
+        </header>
+
+
+        <!-- ================= MAIN CARD ================= -->
+
+        <main class="prediction-card">
+
+
+            <!-- Section Heading -->
+
+            <div class="section-title">
+
+                <h2>
+                    Property Details
+                </h2>
+
+                <p>
+                    Enter the values required by the machine learning model
+                </p>
+
+            </div>
+
+
+            <!-- ================= FORM ================= -->
+
+            <form action="/predict"
+                  method="POST">
+
+
+                <div class="form-grid">
+
+
+                    {% for column in columns %}
+
+
+                    <div class="form-group">
+
+                        <label for="{{ column }}">
+                            {{ column }}
+                        </label>
+
+
+                        <input
+                            type="number"
+                            step="any"
+                            id="{{ column }}"
+                            name="{{ column }}"
+                            placeholder="Enter value"
+                            required
+                        >
+
+                    </div>
+
+
+                    {% endfor %}
+
+
+                </div>
+
+
+                <!-- Predict Button -->
+
+                <button type="submit"
+                        class="predict-btn">
+
+                    🔮 Predict House Price
+
+                </button>
+
+
+            </form>
+
+
+            <!-- ================= RESULT ================= -->
+
+            {% if prediction is defined %}
+
+
+            <div class="result-card">
+
+
+                <div class="result-icon">
+                    🏡
+                </div>
+
+
+                <div class="result-content">
+
+                    <h2>
+                        Estimated House Value
+                    </h2>
+
+                    <p>
+                        The predicted value is
+                    </p>
+
+
+                    <div class="prediction-value">
+
+                        {{ "%.2f"|format(prediction) }}
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            {% endif %}
+
+
+        </main>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer>
+
+            <p>
+                California Housing • Machine Learning Project
+            </p>
+
+        </footer>
+
+
+    </div>
+
+</body>
+
+</html>
